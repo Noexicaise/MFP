@@ -73,7 +73,7 @@
                 <h2 class="text-2xl font-semibold text-blue-700">Bureaux régionaux : analyse et proposition</h2>
             </div>
             <p class="text-lg mb-4">
-                La proposition vise à réduire le nombre de photocopieurs de 52 à 42 en se basant sur la localisation (nombre d'étages, machine par accueil).
+                La proposition vise à réduire le nombre de photocopieurs de **52 à 42** en se basant sur la localisation (nombre d'étages, machine par accueil).
             </p>
             
             <h3 class="text-xl font-semibold text-blue-600 mb-4">Volume moyen des impressions (janv.-août)</h3>
@@ -196,7 +196,7 @@
                 <h2 class="text-2xl font-semibold text-blue-700">Tour du Midi : analyse et proposition</h2>
             </div>
             <p class="text-lg mb-4">
-                La proposition se base sur la consommation, visant à réduire le nombre de photocopieurs de 78 à 48. L'objectif est de ne conserver qu'un seul MFP par étage, avec des exceptions pour les étages à forte consommation.
+                La proposition se base sur la consommation, visant à réduire le nombre de photocopieurs de **78 à 47**. L'objectif est de ne conserver qu'un seul MFP par étage, avec des exceptions pour les étages à forte consommation.
             </p>
 
             <h3 class="text-xl font-semibold text-blue-600 mb-4">Volume moyen des impressions (janv.-août)</h3>
@@ -546,7 +546,7 @@
                 <h2 class="text-2xl font-semibold text-blue-700">Modèle recommandé et coûts</h2>
             </div>
             <p class="text-lg mb-4">
-                Après analyse du volume d’impression actuel et en tenant compte des spécifications des modèles proposés dans le catalogue, le modèle IM C3010A apparaît comme le choix le plus pertinent. Il couvre pleinement nos besoins, tant en termes de performance (vitesse) que de capacité de volume. Nous recommandons donc d’opter pour le leasing de ce modèle.
+                Le modèle **IM C3010A** a été sélectionné comme le choix le plus pertinent, couvrant les besoins en performance et capacité.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="bg-gray-50 rounded-lg p-6 shadow-sm">
@@ -623,6 +623,22 @@
             { label: 'A04', value: 0 },
         ].sort((a, b) => b.value - a.value);
 
+        function createGradient(ctx, chartArea, maxVal) {
+            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+            const colorStops = [
+                { value: 0, color: 'rgba(59, 130, 246, 0.4)' },
+                { value: 0.5, color: 'rgba(59, 130, 246, 0.7)' },
+                { value: 1, color: 'rgba(59, 130, 246, 1)' }
+            ];
+            
+            colorStops.forEach(stop => {
+                const position = stop.value;
+                gradient.addColorStop(position, stop.color);
+            });
+
+            return gradient;
+        }
+
         let bureauxChartInstance = null;
         let tourChartInstance = null;
 
@@ -638,7 +654,19 @@
                     datasets: [{
                         label: 'Volume moyen des impressions (janv.-août)',
                         data: bureauxData.map(d => d.value),
-                        backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                        backgroundColor: function(context) {
+                            const chart = context.chart;
+                            const {ctx, chartArea} = chart;
+                            if (!chartArea) {
+                                return;
+                            }
+                            const maxVal = Math.max(...bureauxData.map(d => d.value));
+                            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                            const ratio = context.raw / maxVal;
+                            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
+                            gradient.addColorStop(ratio, 'rgba(59, 130, 246, 1)');
+                            return gradient;
+                        },
                         borderColor: 'rgba(59, 130, 246, 1)',
                         borderWidth: 1
                     }]
@@ -676,7 +704,19 @@
                     datasets: [{
                         label: 'Volume moyen des impressions (janv.-août)',
                         data: tourData.map(d => d.value),
-                        backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                        backgroundColor: function(context) {
+                            const chart = context.chart;
+                            const {ctx, chartArea} = chart;
+                            if (!chartArea) {
+                                return;
+                            }
+                            const maxVal = Math.max(...tourData.map(d => d.value));
+                            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                            const ratio = context.raw / maxVal;
+                            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
+                            gradient.addColorStop(ratio, 'rgba(59, 130, 246, 1)');
+                            return gradient;
+                        },
                         borderColor: 'rgba(59, 130, 246, 1)',
                         borderWidth: 1
                     }]
