@@ -548,7 +548,7 @@
 
             sortedTourTableData.forEach(row => {
                 const tr = document.createElement('tr');
-                tr.className = `border-b border-gray-200 hover:bg-gray-100 ${['A19', 'A25', 'A18', 'A33'].includes(row.label) ? 'highlighted-row' : ''}`;
+                tr.className = `border-b border-gray-200 hover:bg-gray-100 ${[].includes(row.label) ? 'highlighted-row' : ''}`;
                 
                 let tooltipText = "Pas de remarque";
                 if (row.label === 'A25') {
@@ -564,7 +564,7 @@
                 } else if (row.label === 'A15') {
                     tooltipText = "A vérifier";
                 } else if (row.label === 'A30') {
-                    tooltipText = "La proposition est passée à 1 MFP.";
+                    tooltipText = "Pas de remarque";
                 }
 
                 tr.innerHTML = `
@@ -787,4 +787,5 @@
     </script>
 </body>
 </html>
+
 
