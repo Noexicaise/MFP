@@ -38,6 +38,9 @@
             background-color: #1B2D5B;
             color: white;
         }
+        .nav-button:not(.active) {
+            color: #1f2937;
+        }
         .nav-button:not(.active):hover {
             background-color: #f3f4f6;
             color: #1a202c;
@@ -96,6 +99,11 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(255, 255, 0, 0.3), 0 2px 4px -1px rgba(255, 255, 0, 0.2);
         }
+        .total-row {
+            font-weight: bold;
+            background-color: #f9fafb;
+            border-top: 2px solid #e5e7eb;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -110,7 +118,7 @@
 
         <div class="flex justify-center mb-8 flex-wrap">
             <button id="btn-bureaux" class="nav-button active px-6 py-3 mx-2 rounded-full font-semibold bg-[#1B2D5B] text-white shadow-lg my-1">Bureaux régionaux</button>
-            <button id="btn-tour" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-800 shadow-lg my-1">Tour du Midi</button>
+            <button id="btn-tour" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-900 shadow-lg my-1">Tour du Midi</button>
             <button id="btn-catalogue" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-800 shadow-lg my-1">Catalogue Forcms</button>
             <button id="btn-leasing" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-800 shadow-lg my-1">Calcul du coût du leasing</button>
             <button id="btn-modele" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-800 shadow-lg my-1">Modèle recommandé</button>
@@ -402,55 +410,59 @@
     <script>
         // Data for the charts (sorted by value, descending)
         const bureauxData = [
-            { label: 'Liège', value: 2318, mfp: 5 },
-            { label: 'Mons', value: 2207, mfp: 5 },
-            { label: 'Charleroi', value: 1677, mfp: 5 },
-            { label: 'Gent', value: 1544, mfp: 5 },
-            { label: 'Antwerpen', value: 1316, mfp: 6 },
-            { label: 'Hasselt', value: 1259, mfp: 5 },
-            { label: 'Malmedy', value: 1215, mfp: 2 },
-            { label: 'Mouscron', value: 1111, mfp: 2 },
-            { label: 'Namur', value: 1106, mfp: 4 },
-            { label: 'Brugge', value: 936, mfp: 4 },
-            { label: 'Kortrijk', value: 613, mfp: 4 },
-            { label: 'Turnhout', value: 610, mfp: 2 },
-            { label: 'Arlon', value: 465, mfp: 3 },
+            { label: 'Liège', value: 2318, mfp: 5, proposed: 3 },
+            { label: 'Mons', value: 2207, mfp: 5, proposed: 4 },
+            { label: 'Charleroi', value: 1677, mfp: 5, proposed: 4 },
+            { label: 'Gent', value: 1544, mfp: 5, proposed: 4 },
+            { label: 'Antwerpen', value: 1316, mfp: 6, proposed: 4 },
+            { label: 'Hasselt', value: 1259, mfp: 5, proposed: 4 },
+            { label: 'Malmedy', value: 1215, mfp: 2, proposed: 2 },
+            { label: 'Mouscron', value: 1111, mfp: 2, proposed: 2 },
+            { label: 'Namur', value: 1106, mfp: 4, proposed: 4 },
+            { label: 'Brugge', value: 936, mfp: 4, proposed: 3 },
+            { label: 'Kortrijk', value: 613, mfp: 4, proposed: 3 },
+            { label: 'Turnhout', value: 610, mfp: 2, proposed: 2 },
+            { label: 'Arlon', value: 465, mfp: 3, proposed: 3 },
         ].sort((a, b) => b.value - a.value);
 
         const tourData = [
-            { label: 'A16', value: 11434, mfp: 6 },
-            { label: 'A22', value: 9927, mfp: 3 },
-            { label: 'A24', value: 8732, mfp: 2 },
-            { label: 'A17', value: 6945, mfp: 2 },
-            { label: 'A02', value: 4951, mfp: 3 },
-            { label: 'A09', value: 3510, mfp: 2 },
-            { label: 'A36', value: 3170, mfp: 2 },
-            { label: 'A15', value: 2909, mfp: 3 },
-            { label: 'A03', value: 2557, mfp: 1 },
-            { label: 'A34', value: 2400, mfp: 2 },
-            { label: 'A25', value: 2173, mfp: 3 },
-            { label: 'A11', value: 2066, mfp: 2 },
-            { label: 'B01', value: 1983, mfp: 2 },
-            { label: 'A10', value: 1923, mfp: 2 },
-            { label: 'A35', value: 1879, mfp: 2 },
-            { label: 'A13', value: 1813, mfp: 2 },
-            { label: 'A32', value: 1799, mfp: 2 },
-            { label: 'A23', value: 1691, mfp: 2 },
-            { label: 'B02', value: 1601, mfp: 3 },
-            { label: 'A29', value: 1512, mfp: 2 },
-            { label: 'A28', value: 1407, mfp: 2 },
-            { label: 'A12', value: 1297, mfp: 2 },
-            { label: 'A21', value: 1227, mfp: 2 },
-            { label: 'A31', value: 1207, mfp: 2 },
-            { label: 'A27', value: 1006, mfp: 2 },
-            { label: 'A00', value: 988, mfp: 1 },
-            { label: 'A20', value: 907, mfp: 2 },
-            { label: 'A26', value: 865, mfp: 2 },
-            { label: 'S01', value: 856, mfp: 1 },
-            { label: 'A30', value: 379, mfp: 2 },
-            { label: 'A05', value: 230, mfp: 3 },
-            { label: 'A19', value: 2, mfp: 1 },
-            { label: 'A04', value: 0, mfp: 3 },
+            { label: 'A16', value: 11434, mfp: 6, proposed: 5 },
+            { label: 'A22', value: 9927, mfp: 3, proposed: 3 },
+            { label: 'A24', value: 8732, mfp: 2, proposed: 2 },
+            { label: 'A17', value: 6945, mfp: 2, proposed: 1 },
+            { label: 'A02', value: 4951, mfp: 3, proposed: 3 },
+            { label: 'A09', value: 3510, mfp: 2, proposed: 2 },
+            { label: 'A36', value: 3170, mfp: 2, proposed: 2 },
+            { label: 'A15', value: 2909, mfp: 3, proposed: 2 },
+            { label: 'A03', value: 2557, mfp: 1, proposed: 1 },
+            { label: 'A34', value: 2400, mfp: 3, proposed: 1 },
+            { label: 'A25', value: 2173, mfp: 2, proposed: 1 },
+            { label: 'A11', value: 2066, mfp: 2, proposed: 1 },
+            { label: 'B01', value: 1983, mfp: 2, proposed: 1 },
+            { label: 'A10', value: 1923, mfp: 2, proposed: 1 },
+            { label: 'A35', value: 1879, mfp: 2, proposed: 1 },
+            { label: 'A13', value: 1813, mfp: 2, proposed: 1 },
+            { label: 'A32', value: 1799, mfp: 2, proposed: 1 },
+            { label: 'A23', value: 1691, mfp: 2, proposed: 1 },
+            { label: 'B02', value: 1601, mfp: 3, proposed: 2 },
+            { label: 'A29', value: 1512, mfp: 2, proposed: 1 },
+            { label: 'A28', value: 1407, mfp: 2, proposed: 1 },
+            { label: 'A12', value: 1297, mfp: 2, proposed: 1 },
+            { label: 'A21', value: 1227, mfp: 2, proposed: 1 },
+            { label: 'A31', value: 1207, mfp: 2, proposed: 1 },
+            { label: 'A27', value: 1006, mfp: 2, proposed: 1 },
+            { label: 'A00', value: 988, mfp: 1, proposed: 1 },
+            { label: 'A20', value: 907, mfp: 2, proposed: 1 },
+            { label: 'A14', value: 900, mfp: 2, proposed: 1 },
+            { label: 'A26', value: 865, mfp: 2, proposed: 1 },
+            { label: 'S01', value: 856, mfp: 1, proposed: 1 },
+            { label: 'A18', value: 683, mfp: 1, proposed: 1 },
+            { label: 'B00', value: 602, mfp: 2, proposed: 1 },
+            { label: 'A30', value: 379, mfp: 2, proposed: 1 },
+            { label: 'A05', value: 230, mfp: 3, proposed: 1 },
+            { label: 'A19', value: 2, mfp: 1, proposed: 0 },
+            { label: 'A04', value: 0, mfp: 3, proposed: 1 },
+            { label: 'A33', value: 0, mfp: 0, proposed: 0 },
         ].sort((a, b) => b.value - a.value);
 
         // Data sorted for tables (by difference)
@@ -467,11 +479,11 @@
         }).sort((a, b) => a.difference - b.difference);
 
         const proposedTour = {
-            'A25': 1, 'A04': 1, 'A05': 1, 'B00': 1, 'B01': 1, 'B02': 2, 'A10': 1, 'A11': 1,
-            'A12': 1, 'A13': 1, 'A14': 1, 'A15': 2, 'A16': 5, 'A17': 1, 'A19': 1, 'A20': 1,
-            'A21': 1, 'A23': 1, 'A24': 1, 'A26': 1, 'A27': 1, 'A28': 1, 'A29': 1, 'A31': 1,
-            'A32': 1, 'A34': 1, 'A35': 1, 'A00': 1, 'A02': 3, 'A03': 1, 'A09': 2, 'A18': 1,
-            'A22': 3, 'A30': 2, 'A36': 2, 'S01': 1
+            'A19': 0, 'A25': 3, 'A33': 0, 'A18': 1, 'A16': 5, 'A22': 3, 'A24': 2, 'A17': 1,
+            'A02': 3, 'A09': 2, 'A36': 2, 'A15': 2, 'A03': 1, 'A34': 1, 'A11': 1, 'B01': 1,
+            'A10': 1, 'A35': 1, 'A13': 1, 'A32': 1, 'A23': 1, 'B02': 2, 'A29': 1, 'A28': 1,
+            'A12': 1, 'A21': 1, 'A31': 1, 'A27': 1, 'A00': 1, 'A20': 1, 'A14': 1, 'A26': 1,
+            'S01': 1, 'B00': 1, 'A30': 1, 'A05': 1, 'A04': 1
         };
         
         const sortedTourTableData = tourData.map(row => {
@@ -484,6 +496,12 @@
         function renderTables() {
             const bureauxTableBody = document.querySelector('#section-bureaux tbody');
             bureauxTableBody.innerHTML = '';
+            
+            let totalMoyenneBureaux = 0;
+            let totalMfpActuelsBureaux = 0;
+            let totalPropositionBureaux = 0;
+            let totalDifferenceBureaux = 0;
+
             sortedBureauxTableData.forEach(row => {
                 const tr = document.createElement('tr');
                 tr.className = 'border-b border-gray-200 hover:bg-gray-100';
@@ -501,13 +519,36 @@
                     <td class="tooltip">${tooltipText}</td>
                 `;
                 bureauxTableBody.appendChild(tr);
+
+                totalMoyenneBureaux += row.value;
+                totalMfpActuelsBureaux += row.mfp;
+                totalPropositionBureaux += row.proposed;
+                totalDifferenceBureaux += row.difference;
             });
+            
+            const totalRowBureaux = document.createElement('tr');
+            totalRowBureaux.className = 'total-row';
+            totalRowBureaux.innerHTML = `
+                <td class="py-3 px-6">Total</td>
+                <td class="py-3 px-6">${totalMoyenneBureaux}</td>
+                <td class="py-3 px-6">${totalMfpActuelsBureaux}</td>
+                <td class="py-3 px-6">${totalPropositionBureaux}</td>
+                <td class="py-3 px-6">${totalDifferenceBureaux}</td>
+                <td></td>
+            `;
+            bureauxTableBody.appendChild(totalRowBureaux);
 
             const tourTableBody = document.querySelector('#section-tour tbody');
             tourTableBody.innerHTML = '';
+            
+            let totalMoyenneTour = 0;
+            let totalMfpActuelsTour = 0;
+            let totalPropositionTour = 0;
+            let totalDifferenceTour = 0;
+
             sortedTourTableData.forEach(row => {
                 const tr = document.createElement('tr');
-                tr.className = 'border-b border-gray-200 hover:bg-gray-100';
+                tr.className = `border-b border-gray-200 hover:bg-gray-100 ${['A19', 'A25', 'A18', 'A33'].includes(row.label) ? 'highlighted-row' : ''}`;
                 
                 let tooltipText = "Pas de remarque";
                 if (row.label === 'A25') {
@@ -522,6 +563,8 @@
                     tooltipText = "ARGO ?";
                 } else if (row.label === 'A15') {
                     tooltipText = "A vérifier";
+                } else if (row.label === 'A30') {
+                    tooltipText = "La proposition est passée à 1 MFP.";
                 }
 
                 tr.innerHTML = `
@@ -533,7 +576,24 @@
                     <td class="tooltip">${tooltipText}</td>
                 `;
                 tourTableBody.appendChild(tr);
+
+                totalMoyenneTour += row.value;
+                totalMfpActuelsTour += row.mfp;
+                totalPropositionTour += row.proposed;
+                totalDifferenceTour += row.difference;
             });
+            
+            const totalRowTour = document.createElement('tr');
+            totalRowTour.className = 'total-row';
+            totalRowTour.innerHTML = `
+                <td class="py-3 px-6">Total</td>
+                <td class="py-3 px-6">${totalMoyenneTour}</td>
+                <td class="py-3 px-6">${totalMfpActuelsTour}</td>
+                <td class="py-3 px-6">${totalPropositionTour}</td>
+                <td class="py-3 px-6">${totalDifferenceTour}</td>
+                <td></td>
+            `;
+            tourTableBody.appendChild(totalRowTour);
         }
 
 
@@ -700,10 +760,10 @@
                 navButtons.forEach(button => {
                     button.classList.remove('active');
                     button.classList.remove('bg-[#1B2D5B]', 'text-white');
-                    button.classList.add('bg-gray-200', 'text-gray-800');
+                    button.classList.add('bg-gray-200', 'text-gray-900');
                 });
                 document.getElementById(buttonId).classList.add('active', 'bg-[#1B2D5B]', 'text-white');
-                document.getElementById(buttonId).classList.remove('bg-gray-200', 'text-gray-800');
+                document.getElementById(buttonId).classList.remove('bg-gray-200', 'text-gray-900');
             }
 
             navButtons.forEach(button => {
