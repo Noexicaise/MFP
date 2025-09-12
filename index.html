@@ -130,7 +130,7 @@
                 Sous réserve des synergies et des ajustements des besoins recensés, la proposition est établie sur base des informations actuellement disponibles.
             </p>
 
-            <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Volume moyen des impressions en 2025 (janv.-août)</h3>
+            <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Volume moyen des impressions en 2025 (janv - août)</h3>
             <p class="text-sm text-gray-600 mb-4">Le graphique à barres ci-dessous classe les 13 bureaux régionaux en fonction de leur volume d'impression moyen sur les 8 premiers mois de 2025, du plus élevé au moins élevé.</p>
             <div class="bg-gray-50 rounded-lg p-6 mb-8">
                 <canvas id="bureauxChart"></canvas>
@@ -176,7 +176,7 @@
                 Sous réserve des synergies et des ajustements des besoins recensés, la proposition est établie sur base des informations actuellement disponibles.
             </p>
 
-            <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Volume moyen des impressions en 2025 (janv.-août)</h3>
+            <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Volume moyen des impressions en 2025 (janv - août)</h3>
             <p class="text-sm text-gray-600 mb-4">Le graphique à barres ci-dessous classe les étages de la Tour du Midi en fonction de leur volume d'impression moyen sur les 8 premiers mois de 2025, du plus élevé au moins élevé.</p>
             <div class="bg-gray-50 rounded-lg p-6 mb-8">
                 <canvas id="tourChart"></canvas>
@@ -557,7 +557,7 @@
                 data: {
                     labels: bureauxData.map(d => d.label),
                     datasets: [{
-                        label: 'Volume moyen des impressions en 2025 (janv.-août)',
+                        label: 'Volume moyen des impressions en 2025 (janv - août)',
                         data: bureauxData.map(d => d.value),
                         backgroundColor: function(context) {
                             const chart = context.chart;
@@ -626,7 +626,7 @@
                 data: {
                     labels: tourData.map(d => d.label),
                     datasets: [{
-                        label: 'Volume moyen des impressions en 2025 (janv.-août)',
+                        label: 'Volume moyen des impressions en 2025 (janv - août)',
                         data: tourData.map(d => d.value),
                         backgroundColor: function(context) {
                             const chart = context.chart;
