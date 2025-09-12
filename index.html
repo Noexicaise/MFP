@@ -137,7 +137,7 @@
             </div>
 
             <p class="text-sm text-gray-600 mb-4">
-                Les fichiers avec l’ensemble des données par MFP et par étage peuvent être consultés via <a href="https://gcloudbelgium-my.sharepoint.com/:x:/g/personal/julien_nicaise_sfpd_fgov_be/ERO-1Fe4LWhDtHUWDoPJqWABqhcYrnb0OOJcEwsTH2ZBTA?e=0iBxVB" target="_blank" class="text-[#2CA1AC] underline">ce lien</a>.
+                Le fichier avec l'ensemble des données par MFP et par bureau régional peut être consulté via <a href="https://gcloudbelgium-my.sharepoint.com/:x:/g/personal/julien_nicaise_sfpd_fgov_be/ERO-1Fe4LWhDtHUWDoPJqWABqhcYrnb0OOJcEwsTH2ZBTA?e=0iBxVB" target="_blank" class="text-[#2CA1AC] underline">ce lien</a>.
             </p>
             
             <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Récapitulatif et proposition d'adaptation</h3>
@@ -183,8 +183,7 @@
             </div>
 
             <p class="text-sm text-gray-600 mb-4">
-                Les fichiers avec l’ensemble des données par MFP et par étage peuvent être consultés via <a href="https://gcloudbelgium-my.sharepoint.com/:x:/g/personal/julien_nicaise_sfpd_fgov_be/EYMosbmTTJhMqQ1-xE_LIiUBGiom7gahd15ltVMcQW55tg?e=IP5cka
-" target="_blank" class="text-[#2CA1AC] underline">ce lien</a>.
+                Le fichier avec l'ensemble des données par MFP et par étage peut être consulté via <a href="https://gcloudbelgium-my.sharepoint.com/:x:/g/personal/julien_nicaise_sfpd_fgov_be/EYMosbmTTJhMqQ1-xE_LIiUBGiom7gahd15ltVMcQW55tg?e=IP5cka" target="_blank" class="text-[#2CA1AC] underline">ce lien</a>.
             </p>
 
             <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Récapitulatif et proposition d'adaptation</h3>
@@ -216,7 +215,7 @@
                 <h2 class="text-2xl font-semibold text-[#1B2D5B]">Catalogue Forcms : caractéristiques des modèles</h2>
             </div>
             <p class="text-lg mb-4">
-                Voici les caractéristiques principales des modèles de photocopieurs multifonctions disponibles:
+                Voici les caractéristiques principales des modèles de photocopieurs multifonctions disponibles.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Modèle IM C3010A -->
@@ -390,7 +389,7 @@
             <!-- Addendum Section -->
             <div class="mt-6 p-4 rounded-lg bg-yellow-50 border-l-4 border-yellow-500 text-sm text-yellow-800">
                 <p class="font-semibold mb-2">Addendum :</p>
-                <p>Précisons que le prix indiqué pour les MFP correspond au tarif de base (leasing seul). Le coût réel sera affiné lors de la réunion prévue avec Ricoh (19/09). Il conviendra probablement d’y ajouter les lecteurs de badge, ainsi que, le cas échéant, un module Wi-Fi (dont la pertinence reste à discuter). À noter également que la partie Streamline (Software) n’est pas incluse.</p>
+                <p>Précisons que le prix indiqué pour les MFP correspond au tarif de base (leasing seul). Le coût réel sera affiné lors de la réunion prévue avec Ricoh (19/09). Il conviendra probablement d’y ajouter les lecteurs de badge, ainsi que, le cas échéant, un module Wi-Fi (dont la pertinence reste à discuter). À noter également que la partie Streamline (Software) n’est pas incluse. Enfin, il faut également tenir compte du coup mensuel variable en fonction du nombre de pages imprimées (Mono & Couleurs)</p>
             </div>
 
             <div class="mt-8 flex justify-center">
@@ -700,10 +699,10 @@
             function setActiveButton(buttonId) {
                 navButtons.forEach(button => {
                     button.classList.remove('active');
-                    button.classList.remove('bg-[#1B2D5B]');
+                    button.classList.remove('bg-[#1B2D5B]', 'text-white');
                     button.classList.add('bg-gray-200', 'text-gray-800');
                 });
-                document.getElementById(buttonId).classList.add('active', 'bg-[#1B2D5B]');
+                document.getElementById(buttonId).classList.add('active', 'bg-[#1B2D5B]', 'text-white');
                 document.getElementById(buttonId).classList.remove('bg-gray-200', 'text-gray-800');
             }
 
@@ -728,5 +727,3 @@
     </script>
 </body>
 </html>
-
-
