@@ -104,6 +104,23 @@
             background-color: #f9fafb;
             border-top: 2px solid #e5e7eb;
         }
+        .sortable {
+            cursor: pointer;
+            position: relative;
+        }
+        .sort-icon {
+            margin-left: 8px;
+            font-size: 0.75rem;
+            color: #6b7280;
+            opacity: 0.2;
+            transition: opacity 0.2s ease-in-out;
+        }
+        .sortable:hover .sort-icon {
+            opacity: 1;
+        }
+        .sortable.active .sort-icon {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -130,6 +147,8 @@
                 <h2 class="text-2xl font-semibold text-[#1B2D5B]">Bureaux régionaux : analyse et proposition</h2>
             </div>
             
+            
+
             <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Proposition d'adaptation du volume</h3>
             <p class="text-sm text-gray-700 mb-2">
                 La proposition vise à réduire le nombre de photocopieurs de <span class="font-bold">52 à 42</span> en se basant sur la localisation (nombre d'étages, machine par accueil).
@@ -143,11 +162,11 @@
             <div class="bg-gray-50 rounded-lg p-6 mb-8">
                 <canvas id="bureauxChart"></canvas>
             </div>
-
+            
             <p class="text-sm text-gray-600 mb-4">
-                Le fichier avec l'ensemble des données par MFP et par bureau régional peut être consulté via <a href="https://gcloudbelgium-my.sharepoint.com/:x:/g/personal/julien_nicaise_sfpd_fgov_be/ERO-1Fe4LWhDtHUWDoPJqWABqhcYrnb0OOJcEwsTH2ZBTA?e=0iBxVB" target="_blank" class="text-[#2CA1AC] underline">ce lien</a>.
+                Le fichier avec l'ensemble des données par MFP et par bureau régional peut être consulté via <a href="https://gcloudbelgium-my.sharepoint.com/:x:/g/personal/julien_nicaise_sfpd_fgov_be/ERO-1Fe4LWhDtHUWDoPJWAKABqhcYrnb0OOJcEwsTH2ZBTA?e=0iBxVB" target="_blank" class="text-[#2CA1AC] underline">ce lien</a>.
             </p>
-             <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Volume total des impressions</h3>
+            <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Volume total des impressions</h3>
             <p class="text-sm text-gray-700 mb-2">
                 Le total cumulé pour l'ensemble des 13 bureaux pour les 8 premiers mois de 2025 est le suivant :
             </p>
@@ -159,14 +178,14 @@
             </ul>
             <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Récapitulatif et proposition d'adaptation</h3>
             <div class="overflow-x-auto">
-                <table class="w-full table-auto border-collapse table-custom">
+                <table id="bureauxTable" class="w-full table-auto border-collapse table-custom">
                     <thead>
                         <tr class="bg-gray-200 text-gray-700 uppercase text-sm leading-normal">
-                            <th class="py-3 px-6">Bureau</th>
-                            <th class="py-3 px-6">Moyenne (janv.-août)</th>
-                            <th class="py-3 px-6">MFP actuels</th>
-                            <th class="py-3 px-6">Proposition</th>
-                            <th class="py-3 px-6">Différence</th>
+                            <th class="py-3 px-6 sortable" data-sort-key="label">Bureau<span class="sort-icon">&#x25B2;</span></th>
+                            <th class="py-3 px-6 sortable" data-sort-key="value">Moyenne (janv.-août)<span class="sort-icon">&#x25B2;</span></th>
+                            <th class="py-3 px-6 sortable" data-sort-key="mfp">MFP actuels<span class="sort-icon">&#x25B2;</span></th>
+                            <th class="py-3 px-6 sortable" data-sort-key="proposed">Proposition<span class="sort-icon">&#x25B2;</span></th>
+                            <th class="py-3 px-6 sortable" data-sort-key="difference">Différence<span class="sort-icon">&#x25B2;</span></th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 text-sm font-light">
@@ -214,14 +233,14 @@
             </ul>
             <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Récapitulatif et proposition d'adaptation</h3>
             <div class="overflow-x-auto">
-                <table class="w-full table-auto border-collapse table-custom">
+                <table id="tourTable" class="w-full table-auto border-collapse table-custom">
                     <thead>
                         <tr class="bg-gray-200 text-gray-700 uppercase text-sm leading-normal">
-                            <th class="py-3 px-6">Étage</th>
-                            <th class="py-3 px-6">Moyenne (janv.-août)</th>
-                            <th class="py-3 px-6">MFP actuels</th>
-                            <th class="py-3 px-6">Proposition</th>
-                            <th class="py-3 px-6">Différence</th>
+                            <th class="py-3 px-6 sortable" data-sort-key="label">Étage<span class="sort-icon">&#x25B2;</span></th>
+                            <th class="py-3 px-6 sortable" data-sort-key="value">Moyenne (janv.-août)<span class="sort-icon">&#x25B2;</span></th>
+                            <th class="py-3 px-6 sortable" data-sort-key="mfp">MFP actuels<span class="sort-icon">&#x25B2;</span></th>
+                            <th class="py-3 px-6 sortable" data-sort-key="proposed">Proposition<span class="sort-icon">&#x25B2;</span></th>
+                            <th class="py-3 px-6 sortable" data-sort-key="difference">Différence<span class="sort-icon">&#x25B2;</span></th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 text-sm font-light">
@@ -234,7 +253,7 @@
                 <img src="https://i.ibb.co/4ZcMhrp6/logo.png" alt="Logo de l'entreprise" class="h-[100px] w-auto">
             </div>
         </div>
-
+        
         <!-- Section Catalogue Forcms -->
         <div id="section-catalogue" class="text-section card">
             <div class="card-header">
@@ -244,7 +263,6 @@
                 Voici les caractéristiques principales des modèles de photocopieurs multifonctions disponibles.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Modèle IM C3010A -->
                 <div class="bg-gray-50 rounded-lg p-6 shadow-sm highlighted-card">
                     <h3 class="font-bold text-lg mb-2 text-[#1B2D5B]">IM C3010A</h3>
                     <p class="text-sm text-gray-700">
@@ -254,7 +272,6 @@
                         <span class="font-semibold">Coût par page :</span> 0,0220 € (Couleur) / 0,0029 € (Mono)
                     </p>
                 </div>
-                <!-- Modèle IM C3510A -->
                 <div class="bg-gray-50 rounded-lg p-6 shadow-sm">
                     <h3 class="font-bold text-lg mb-2 text-[#1B2D5B]">IM C3510A</h3>
                     <p class="text-sm text-gray-700">
@@ -264,7 +281,6 @@
                         <span class="font-semibold">Coût par page :</span> 0,0220 € / 0,0029 €
                     </p>
                 </div>
-                <!-- Modèle IM 4000A (Mono) -->
                 <div class="bg-gray-50 rounded-lg p-6 shadow-sm">
                     <h3 class="font-bold text-lg mb-2 text-[#1B2D5B]">IM 4000A (Mono)</h3>
                     <p class="text-sm text-gray-700">
@@ -274,7 +290,6 @@
                         <span class="font-semibold">Coût par page :</span> 0,0041 € (Mono)
                     </p>
                 </div>
-                <!-- Modèle IM C4510A -->
                 <div class="bg-gray-50 rounded-lg p-6 shadow-sm">
                     <h3 class="font-bold text-lg mb-2 text-[#1B2D5B]">IM C4510A</h3>
                     <p class="text-sm text-gray-700">
@@ -284,7 +299,6 @@
                         <span class="font-semibold">Coût par page :</span> 0,0220 € / 0,0029 €
                     </p>
                 </div>
-                <!-- Modèle IM 5000A (Mono) -->
                 <div class="bg-gray-50 rounded-lg p-6 shadow-sm">
                     <h3 class="font-bold text-lg mb-2 text-[#1B2D5B]">IM 5000A (Mono)</h3>
                     <p class="text-sm text-gray-700">
@@ -294,7 +308,6 @@
                         <span class="font-semibold">Coût par page :</span> 0,0041 € (Mono)
                     </p>
                 </div>
-                <!-- Modèle IM C5510A -->
                 <div class="bg-gray-50 rounded-lg p-6 shadow-sm">
                     <h3 class="font-bold text-lg mb-2 text-[#1B2D5B]">IM C5510A</h3>
                     <p class="text-sm text-gray-700">
@@ -304,7 +317,6 @@
                         <span class="font-semibold">Coût par page :</span> 0,0220 € / 0,0029 €
                     </p>
                 </div>
-                <!-- Modèle IM C6010A -->
                 <div class="bg-gray-50 rounded-lg p-6 shadow-sm">
                     <h3 class="font-bold text-lg mb-2 text-[#1B2D5B]">IM C6010A</h3>
                     <p class="text-sm text-gray-700">
@@ -315,12 +327,11 @@
                     </p>
                 </div>
             </div>
-            <div class="mt-8 flex justify-center">
+				<div class="mt-8 flex justify-center">
                 <img src="https://i.ibb.co/4ZcMhrp6/logo.png" alt="Logo de l'entreprise" class="h-[100px] w-auto">
-            </div>
+            </div>						 
         </div>
 
-        <!-- Section Calcul du coût du leasing -->
         <div id="section-leasing" class="text-section card">
             <div class="card-header">
                 <h2 class="text-2xl font-semibold text-[#1B2D5B]">Calcul du coût du leasing - Modèle IMC 3010A</h2>
@@ -386,7 +397,6 @@
             </div>
         </div>
 
-        <!-- Section Modèle recommandé -->
         <div id="section-modele" class="text-section card">
             <div class="card-header">
                 <h2 class="text-2xl font-semibold text-[#1B2D5B]">Modèle recommandé et coûts</h2>
@@ -412,7 +422,6 @@
                 </div>
             </div>
 
-            <!-- Addendum Section -->
             <div class="mt-6 p-4 rounded-lg bg-yellow-50 border-l-4 border-yellow-500 text-sm text-yellow-800">
                 <p class="font-semibold mb-2">Addendum :</p>
                 <p>Précisons que le prix indiqué pour les MFP correspond au tarif de base (leasing seul). Le coût réel sera affiné lors de la réunion prévue avec Ricoh (19/09). Il conviendra probablement d’y ajouter les lecteurs de badge, ainsi que, le cas échéant, un module Wi-Fi (dont la pertinence reste à discuter). À noter également que la partie Streamline (Software) n’est pas incluse. Enfin, il faut également tenir compte du coût mensuel variable en fonction du nombre de pages imprimées (Mono & Couleurs)</p>
@@ -422,16 +431,14 @@
                 <img src="https://i.ibb.co/4ZcMhrp6/logo.png" alt="Logo de l'entreprise" class="h-[100px] w-auto">
             </div>
         </div>
-
     </div>
-
+            
     <script>
-        // Data for the charts (sorted by value, descending)
         const bureauxData = [
             { label: 'Liège', value: 2318, mfp: 5, proposed: 3 },
             { label: 'Mons', value: 2207, mfp: 5, proposed: 4 },
             { label: 'Charleroi', value: 1677, mfp: 5, proposed: 4 },
-            { label: 'Gent', value: 1544, mfp: 5, proposed: 3 },
+            { label: 'Gent', value: 1544, mfp: 5, proposed: 4 },
             { label: 'Antwerpen', value: 1316, mfp: 6, proposed: 4 },
             { label: 'Hasselt', value: 1259, mfp: 5, proposed: 4 },
             { label: 'Malmedy', value: 1215, mfp: 2, proposed: 2 },
@@ -439,9 +446,9 @@
             { label: 'Namur', value: 1106, mfp: 4, proposed: 4 },
             { label: 'Brugge', value: 936, mfp: 4, proposed: 3 },
             { label: 'Kortrijk', value: 613, mfp: 4, proposed: 3 },
-            { label: 'Turnhout', value: 610, mfp: 2, proposed: 3 },
+            { label: 'Turnhout', value: 610, mfp: 2, proposed: 2 },
             { label: 'Arlon', value: 465, mfp: 3, proposed: 3 },
-        ].sort((a, b) => b.value - a.value);
+        ];
 
         const tourData = [
             { label: 'A16', value: 11434, mfp: 6, proposed: 5 },
@@ -481,108 +488,52 @@
             { label: 'A19', value: 2, mfp: 1, proposed: 0 },
             { label: 'A04', value: 0, mfp: 3, proposed: 1 },
             { label: 'A33', value: 0, mfp: 0, proposed: 0 },
-        ].sort((a, b) => b.value - a.value);
-
-        // Data sorted for tables (by difference)
-        const proposedBureaux = {
-            'Antwerpen': 4, 'Liège': 3, 'Brugge': 3, 'Charleroi': 4, 'Gent': 3, 'Hasselt': 4,
-            'Kortrijk': 3, 'Mons': 4, 'Arlon': 3, 'Malmedy': 2, 'Mouscron': 2, 'Namur': 4, 'Turnhout': 3
-        };
-
-        const sortedBureauxTableData = Object.keys(proposedBureaux).map(label => {
-            const row = bureauxData.find(d => d.label === label);
-            const proposed = proposedBureaux[label];
-            const difference = proposed - row.mfp;
-            return { ...row, proposed, difference };
-        }).sort((a, b) => a.difference - b.difference);
-
-        const proposedTour = {
-            'A19': 0, 'A25': 1, 'A33': 0, 'A18': 1, 'A16': 5, 'A22': 3, 'A24': 2, 'A17': 1,
-            'A02': 3, 'A09': 2, 'A36': 2, 'A15': 2, 'A03': 1, 'A34': 1, 'A11': 1, 'B01': 1,
-            'A10': 1, 'A35': 1, 'A13': 1, 'A32': 1, 'A23': 1, 'B02': 2, 'A29': 1, 'A28': 1,
-            'A12': 1, 'A21': 1, 'A31': 1, 'A27': 1, 'A00': 1, 'A20': 1, 'A14': 1, 'A26': 1,
-            'S01': 1, 'B00': 1, 'A30': 1, 'A05': 1, 'A04': 1
-        };
+        ];
         
-        const sortedTourTableData = tourData.map(row => {
-            const proposed = proposedTour[row.label] !== undefined ? proposedTour[row.label] : row.mfp;
-            const difference = proposed - row.mfp;
-            return { ...row, proposed, difference };
-        }).sort((a, b) => a.difference - b.difference);
+        let sortState = { key: 'value', direction: 'desc' };
 
-        // Function to render the sorted tables with tooltips
-        function renderTables() {
-            const bureauxTableBody = document.querySelector('#section-bureaux tbody');
-            bureauxTableBody.innerHTML = '';
+        function renderTable(data, tableId) {
+            const tableBody = document.querySelector(`#${tableId} tbody`);
+            tableBody.innerHTML = '';
             
-            let totalMoyenneBureaux = 0;
-            let totalMfpActuelsBureaux = 0;
-            let totalPropositionBureaux = 0;
-            let totalDifferenceBureaux = 0;
+            const dataWithDifference = data.map(row => {
+                const difference = row.proposed - row.mfp;
+                return { ...row, difference };
+            });
 
-            sortedBureauxTableData.forEach(row => {
+            dataWithDifference.sort((a, b) => {
+                const aValue = a[sortState.key];
+                const bValue = b[sortState.key];
+
+                if (sortState.key === 'label') {
+                    if (aValue < bValue) return sortState.direction === 'asc' ? -1 : 1;
+                    if (aValue > bValue) return sortState.direction === 'asc' ? 1 : -1;
+                    return 0;
+                } else {
+                    return sortState.direction === 'asc' ? aValue - bValue : bValue - aValue;
+                }
+            });
+
+            let totalMoyenne = 0;
+            let totalMfpActuels = 0;
+            let totalProposition = 0;
+            let totalDifference = 0;
+
+            dataWithDifference.forEach(row => {
                 const tr = document.createElement('tr');
                 tr.className = 'border-b border-gray-200 hover:bg-gray-100';
-                let tooltipText = "Pas de remarque";
-                if (row.label === 'Liège') {
-                    tooltipText = "Deux offline depuis le début de l'année. Ne gêne pas pour le travail";
-                }
-
-                tr.innerHTML = `
-                    <td class="py-3 px-6">${row.label}</td>
-                    <td class="py-3 px-6">${row.value}</td>
-                    <td class="py-3 px-6">${row.mfp}</td>
-                    <td class="py-3 px-6">${row.proposed}</td>
-                    <td class="py-3 px-6 text-[#${row.difference < 0 ? 'B71E4C' : '2CA1AC'}]">${row.difference}</td>
-                    <td class="tooltip">${tooltipText}</td>
-                `;
-                bureauxTableBody.appendChild(tr);
-
-                totalMoyenneBureaux += row.value;
-                totalMfpActuelsBureaux += row.mfp;
-                totalPropositionBureaux += row.proposed;
-                totalDifferenceBureaux += row.difference;
-            });
-            
-            const totalRowBureaux = document.createElement('tr');
-            totalRowBureaux.className = 'total-row';
-            totalRowBureaux.innerHTML = `
-                <td class="py-3 px-6">Total</td>
-                <td class="py-3 px-6">${totalMoyenneBureaux}</td>
-                <td class="py-3 px-6">${totalMfpActuelsBureaux}</td>
-                <td class="py-3 px-6">${totalPropositionBureaux}</td>
-                <td class="py-3 px-6">${totalDifferenceBureaux}</td>
-                <td></td>
-            `;
-            bureauxTableBody.appendChild(totalRowBureaux);
-
-            const tourTableBody = document.querySelector('#section-tour tbody');
-            tourTableBody.innerHTML = '';
-            
-            let totalMoyenneTour = 0;
-            let totalMfpActuelsTour = 0;
-            let totalPropositionTour = 0;
-            let totalDifferenceTour = 0;
-
-            sortedTourTableData.forEach(row => {
-                const tr = document.createElement('tr');
-                tr.className = `border-b border-white-200 hover:bg-white-100 ${[].includes(row.label) ? 'highlighted-row' : ''}`;
                 
                 let tooltipText = "Pas de remarque";
-                if (row.label === 'A25') {
-                    tooltipText = "Une systématiquement éteinte";
-                } else if (row.label === 'A04') {
-                    tooltipText = "Ouvriers (Logistic)";
-                } else if (row.label === 'B02') {
-                    tooltipText = "Une pour le mess";
-                } else if (row.label === 'A02') {
-                    tooltipText = "Accueil";
-                } else if (row.label === 'A09') {
-                    tooltipText = "ARGO ?";
-                } else if (row.label === 'A15') {
-                    tooltipText = "A vérifier";
-                } else if (row.label === 'A30') {
-                    tooltipText = "Pas de remarque";
+                if (tableId === 'bureauxTable') {
+                    if (row.label === 'Liège') { tooltipText = "Deux offline depuis le début de l'année. Ne gêne pas pour le travail"; }
+                } else if (tableId === 'tourTable') {
+                    if (row.label === 'A25') { tooltipText = "Une systématiquement éteinte"; }
+                    else if (row.label === 'A04') { tooltipText = "Ouvriers (Logistic)"; }
+                    else if (row.label === 'B02') { tooltipText = "Une pour le mess"; }
+                    else if (row.label === 'A02') { tooltipText = "Accueil"; }
+                    else if (row.label === 'A09') { tooltipText = "ARGO ?"; }
+                    else if (row.label === 'A15') { tooltipText = "A vérifier"; }
+                    else if (row.label === 'A30') { tooltipText = "La proposition est passée à 1 MFP."; }
                 }
 
                 tr.innerHTML = `
@@ -593,27 +544,63 @@
                     <td class="py-3 px-6 text-[#${row.difference < 0 ? 'B71E4C' : '2CA1AC'}]">${row.difference}</td>
                     <td class="tooltip">${tooltipText}</td>
                 `;
-                tourTableBody.appendChild(tr);
+                tableBody.appendChild(tr);
 
-                totalMoyenneTour += row.value;
-                totalMfpActuelsTour += row.mfp;
-                totalPropositionTour += row.proposed;
-                totalDifferenceTour += row.difference;
+                totalMoyenne += row.value;
+                totalMfpActuels += row.mfp;
+                totalProposition += row.proposed;
+                totalDifference += row.difference;
             });
-            
-            const totalRowTour = document.createElement('tr');
-            totalRowTour.className = 'total-row';
-            totalRowTour.innerHTML = `
+
+            const totalRow = document.createElement('tr');
+            totalRow.className = 'total-row';
+            totalRow.innerHTML = `
                 <td class="py-3 px-6">Total</td>
-                <td class="py-3 px-6">${totalMoyenneTour}</td>
-                <td class="py-3 px-6">${totalMfpActuelsTour}</td>
-                <td class="py-3 px-6">${totalPropositionTour}</td>
-                <td class="py-3 px-6">${totalDifferenceTour}</td>
+                <td class="py-3 px-6">${totalMoyenne}</td>
+                <td class="py-3 px-6">${totalMfpActuels}</td>
+                <td class="py-3 px-6">${totalProposition}</td>
+                <td class="py-3 px-6">${totalDifference}</td>
                 <td></td>
             `;
-            tourTableBody.appendChild(totalRowTour);
+            tableBody.appendChild(totalRow);
         }
 
+        function updateSortIndicators(tableId) {
+            const headers = document.querySelectorAll(`#${tableId} .sortable`);
+            headers.forEach(header => {
+                const icon = header.querySelector('.sort-icon');
+                if (header.dataset.sortKey === sortState.key) {
+                    icon.style.opacity = '1';
+                    header.classList.add('active');
+                    icon.innerHTML = sortState.direction === 'asc' ? '&#x25B2;' : '&#x25BC;';
+                } else {
+                    icon.style.opacity = '0.2';
+                    header.classList.remove('active');
+                    icon.innerHTML = '&#x25B2;';
+                }
+            });
+        }
+        
+        function handleSort(e) {
+            const tableHeader = e.currentTarget;
+            const sortKey = tableHeader.dataset.sortKey;
+            const tableId = tableHeader.closest('table').id;
+
+            if (sortState.key === sortKey) {
+                sortState.direction = sortState.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortState.key = sortKey;
+                sortState.direction = sortKey === 'label' ? 'asc' : 'desc';
+            }
+
+            if (tableId === 'bureauxTable') {
+                renderTable(bureauxData, 'bureauxTable');
+                updateSortIndicators('bureauxTable');
+            } else {
+                renderTable(tourData, 'tourTable');
+                updateSortIndicators('tourTable');
+            }
+        }
 
         function createGradient(ctx, chartArea, color) {
             const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
@@ -629,14 +616,15 @@
             if (bureauxChartInstance) {
                 bureauxChartInstance.destroy();
             }
+            const sortedData = [...bureauxData].sort((a, b) => b.value - a.value);
             const ctx = document.getElementById('bureauxChart').getContext('2d');
             bureauxChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: bureauxData.map(d => d.label),
+                    labels: sortedData.map(d => d.label),
                     datasets: [{
                         label: 'Volume moyen des impressions en 2025 (janv - août)',
-                        data: bureauxData.map(d => d.value),
+                        data: sortedData.map(d => d.value),
                         backgroundColor: function(context) {
                             const chart = context.chart;
                             const {ctx, chartArea} = chart;
@@ -649,7 +637,7 @@
                         borderWidth: 1
                     }, {
                         label: 'Nombre de MFP actuels',
-                        data: bureauxData.map(d => d.mfp),
+                        data: sortedData.map(d => d.mfp),
                         backgroundColor: '#2CA1AC',
                         borderColor: '#2CA1AC',
                         borderWidth: 1,
@@ -698,14 +686,15 @@
             if (tourChartInstance) {
                 tourChartInstance.destroy();
             }
+            const sortedData = [...tourData].sort((a, b) => b.value - a.value);
             const ctx = document.getElementById('tourChart').getContext('2d');
             tourChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: tourData.map(d => d.label),
+                    labels: sortedData.map(d => d.label),
                     datasets: [{
                         label: 'Volume moyen des impressions en 2025 (janv - août)',
-                        data: tourData.map(d => d.value),
+                        data: sortedData.map(d => d.value),
                         backgroundColor: function(context) {
                             const chart = context.chart;
                             const {ctx, chartArea} = chart;
@@ -718,7 +707,7 @@
                         borderWidth: 1
                     }, {
                         label: 'Nombre de MFP actuels',
-                        data: tourData.map(d => d.mfp),
+                        data: sortedData.map(d => d.mfp),
                         backgroundColor: '#2CA1AC',
                         borderColor: '#2CA1AC',
                         borderWidth: 1,
@@ -763,6 +752,7 @@
             });
         }
 
+
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('.text-section');
             const navButtons = document.querySelectorAll('.nav-button');
@@ -771,7 +761,10 @@
                 sections.forEach(section => {
                     section.classList.remove('active-section');
                 });
-                document.getElementById(sectionId).classList.add('active-section');
+                const sectionElement = document.getElementById(sectionId);
+                if (sectionElement) {
+                    sectionElement.classList.add('active-section');
+                }
             }
 
             function setActiveButton(buttonId) {
@@ -791,15 +784,23 @@
                     setActiveButton(e.target.id);
                     if (e.target.id === 'btn-bureaux') {
                         createBureauxChart();
-                        renderTables();
+                        renderTable(bureauxData, 'bureauxTable');
+                        updateSortIndicators('bureauxTable');
                     } else if (e.target.id === 'btn-tour') {
                         createTourChart();
-                        renderTables();
+                        renderTable(tourData, 'tourTable');
+                        updateSortIndicators('tourTable');
                     }
                 });
             });
 
-            renderTables();
+            document.querySelectorAll('.sortable').forEach(header => {
+                header.addEventListener('click', handleSort);
+            });
+
+            // Initial rendering
+            renderTable(bureauxData, 'bureauxTable');
+            updateSortIndicators('bureauxTable');
             createBureauxChart();
         });
     </script>
