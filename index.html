@@ -147,7 +147,16 @@
             <p class="text-sm text-gray-600 mb-4">
                 Le fichier avec l'ensemble des données par MFP et par bureau régional peut être consulté via <a href="https://gcloudbelgium-my.sharepoint.com/:x:/g/personal/julien_nicaise_sfpd_fgov_be/ERO-1Fe4LWhDtHUWDoPJqWABqhcYrnb0OOJcEwsTH2ZBTA?e=0iBxVB" target="_blank" class="text-[#2CA1AC] underline">ce lien</a>.
             </p>
-            
+             <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Volume total des impressions</h3>
+            <p class="text-sm text-gray-700 mb-2">
+                Le total cumulé pour l'ensemble des 13 bureaux pour les 8 premiers mois de 2025 est le suivant :
+            </p>
+            <ul class="list-disc list-inside text-sm text-gray-700 mb-6">
+                <li><span class="font-bold">Total des impressions :</span> 131 004</li>
+                <li><span class="font-bold">Total en noir et blanc :</span> 73 915 (<span class="text- font-bold text-[#2CA1AC]">56,4%</span>)</li>
+                <li><span class="font-bold">Total en couleur :</span> 57 089 (<span class="text- font-bold text-[#B71E4C]">43,6%</span>)</li>
+				<li><span class="font-bold">Nombre de pages moyenne par agent :</span> 270/an (485 personnes)</li>
+            </ul>
             <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Récapitulatif et proposition d'adaptation</h3>
             <div class="overflow-x-auto">
                 <table class="w-full table-auto border-collapse table-custom">
@@ -193,7 +202,16 @@
             <p class="text-sm text-gray-600 mb-4">
                 Le fichier avec l'ensemble des données par MFP et par étage peut être consulté via <a href="https://gcloudbelgium-my.sharepoint.com/:x:/g/personal/julien_nicaise_sfpd_fgov_be/EYMosbmTTJhMqQ1-xE_LIiUBGiom7gahd15ltVMcQW55tg?e=IP5cka" target="_blank" class="text-[#2CA1AC] underline">ce lien</a>.
             </p>
-
+<h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Volume total des impressions</h3>
+            <p class="text-sm text-gray-700 mb-2">
+                Le total cumulé pour l'ensemble des 37 étages pour les 8 premiers mois de 2025 est le suivant :
+            </p>
+            <ul class="list-disc list-inside text-sm text-gray-700 mb-6">
+                <li><span class="font-bold">Total des impressions :</span> 700 219</li>
+                <li><span class="font-bold">Total en noir et blanc :</span> 353 601 (<span class="text- font-bold text-[#2CA1AC]">49,5%</span>)</li>
+                <li><span class="font-bold">Total en couleur :</span> 346 618 (<span class="text- font-bold text-[#B41E4C]">50,5%</span>)</li>
+				<li><span class="font-bold">Nombre de pages moyenne par agent :</span> 414/an (1693 personnes)</li>
+            </ul>
             <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Récapitulatif et proposition d'adaptation</h3>
             <div class="overflow-x-auto">
                 <table class="w-full table-auto border-collapse table-custom">
@@ -413,7 +431,7 @@
             { label: 'Liège', value: 2318, mfp: 5, proposed: 3 },
             { label: 'Mons', value: 2207, mfp: 5, proposed: 4 },
             { label: 'Charleroi', value: 1677, mfp: 5, proposed: 4 },
-            { label: 'Gent', value: 1544, mfp: 5, proposed: 4 },
+            { label: 'Gent', value: 1544, mfp: 5, proposed: 3 },
             { label: 'Antwerpen', value: 1316, mfp: 6, proposed: 4 },
             { label: 'Hasselt', value: 1259, mfp: 5, proposed: 4 },
             { label: 'Malmedy', value: 1215, mfp: 2, proposed: 2 },
@@ -421,7 +439,7 @@
             { label: 'Namur', value: 1106, mfp: 4, proposed: 4 },
             { label: 'Brugge', value: 936, mfp: 4, proposed: 3 },
             { label: 'Kortrijk', value: 613, mfp: 4, proposed: 3 },
-            { label: 'Turnhout', value: 610, mfp: 2, proposed: 2 },
+            { label: 'Turnhout', value: 610, mfp: 2, proposed: 3 },
             { label: 'Arlon', value: 465, mfp: 3, proposed: 3 },
         ].sort((a, b) => b.value - a.value);
 
@@ -467,8 +485,8 @@
 
         // Data sorted for tables (by difference)
         const proposedBureaux = {
-            'Antwerpen': 4, 'Liège': 3, 'Brugge': 3, 'Charleroi': 4, 'Gent': 4, 'Hasselt': 4,
-            'Kortrijk': 3, 'Mons': 4, 'Arlon': 3, 'Malmedy': 2, 'Mouscron': 2, 'Namur': 4, 'Turnhout': 2
+            'Antwerpen': 4, 'Liège': 3, 'Brugge': 3, 'Charleroi': 4, 'Gent': 3, 'Hasselt': 4,
+            'Kortrijk': 3, 'Mons': 4, 'Arlon': 3, 'Malmedy': 2, 'Mouscron': 2, 'Namur': 4, 'Turnhout': 3
         };
 
         const sortedBureauxTableData = Object.keys(proposedBureaux).map(label => {
@@ -548,7 +566,7 @@
 
             sortedTourTableData.forEach(row => {
                 const tr = document.createElement('tr');
-                tr.className = `border-b border-gray-200 hover:bg-gray-100 ${[].includes(row.label) ? 'highlighted-row' : ''}`;
+                tr.className = `border-b border-white-200 hover:bg-white-100 ${[].includes(row.label) ? 'highlighted-row' : ''}`;
                 
                 let tooltipText = "Pas de remarque";
                 if (row.label === 'A25') {
@@ -787,6 +805,3 @@
     </script>
 </body>
 </html>
-
-
-
