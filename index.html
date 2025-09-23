@@ -136,9 +136,11 @@
         <div class="flex justify-center mb-8 flex-wrap">
             <button id="btn-bureaux" class="nav-button active px-6 py-3 mx-2 rounded-full font-semibold bg-[#1B2D5B] text-white shadow-lg my-1">Bureaux régionaux</button>
             <button id="btn-tour" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-900 shadow-lg my-1">Tour du Midi</button>
+				<button id="btn-volumes" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-800 shadow-lg my-1">Volumes</button>
             <button id="btn-catalogue" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-800 shadow-lg my-1">Catalogue Forcms</button>
             <button id="btn-leasing" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-800 shadow-lg my-1">Calcul du coût du leasing</button>
             <button id="btn-modele" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-800 shadow-lg my-1">Modèle recommandé</button>
+		
         </div>
 
         <!-- Section Bureaux régionaux -->
@@ -253,7 +255,63 @@
                 <img src="https://i.ibb.co/4ZcMhrp6/logo.png" alt="Logo de l'entreprise" class="h-[100px] w-auto">
             </div>
         </div>
-        
+		
+		
+        <div id="section-volumes" class="text-section card">
+    <div class="card-header">
+        <h2 class="text-2xl font-semibold text-[#1B2D5B]">
+            Analyse du volume d’impression sur la durée du contrat
+        </h2>
+    </div>
+
+    <p class="text-sm mb-4">
+        Sur la base d’un contrat de 60 mois et d’une capacité théorique de 15 000 pages par mois, la durée de vie estimée d’un MFP atteint environ 1 million de pages.
+		L’étude des compteurs réels montre toutefois une utilisation bien inférieure :
+<ul class="list-disc pl-4 text-sm mb-4 text-gray-800 text-base">
+<li>Aucun copieur n’a dépassé 1 000 000, 750 000 ou même 500 000 pages</li>
+
+<li>Seul 1 copieur (0,8 %) a franchi le seuil de 250 000 pages</li>
+<li>17 copieurs (13,8 %) dépassent 100 000 pages.</li>
+<li>12 copieurs (9,8 %) dépassent 50 000 pages.</li>
+<li>46 copieurs (37,4 %) dépassent 25 000 pages.</li>
+<li>33 copieurs (26,8 %) dépassent 10 000 pages.</li>
+<li>14 copieurs (11,4 %) ne dépassent pas les 10 000 pages.</li>
+</ul>
+    </p>
+
+
+   
+
+  <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Analyse des volumes d'impression</h3>
+   <p class="text-gray-600 text-left mb-8">
+            Volume sur la durée totale du contrat.
+        </p>
+    <!-- === Nouveau bloc : graphique des volumes d’impression === -->
+    <div class="mt-12 bg-white shadow-xl rounded-2xl p-8">
+       
+        <div class="relative w-full h-96">
+            <canvas id="pieChart"></canvas>
+        </div>
+	
+    </div>
+	
+	 <!-- Bloc Addendum existant -->
+    <div class="mt-6 p-4 rounded-lg bg-yellow-50 border-l-4 border-yellow-500 text-sm text-yellow-800 relative left-1/2 -translate-x-1/2">
+ 
+Ces chiffres confirment un écart important entre la capacité théorique et l’usage réel, qui est illustré par le graphique ci-dessous.
+    </div>
+	
+	  <!-- Logo existant -->
+    <div class="mt-8 flex justify-center">
+        <img src="https://i.ibb.co/4ZcMhrp6/logo.png" alt="Logo de l'entreprise" class="h-[100px] w-auto">
+    </div>
+</div>
+
+
+		
+		
+		
+		
         <!-- Section Catalogue Forcms -->
         <div id="section-catalogue" class="text-section card">
             <div class="card-header">
@@ -437,6 +495,7 @@
                 <img src="https://i.ibb.co/4ZcMhrp6/logo.png" alt="Logo de l'entreprise" class="h-[100px] w-auto">
             </div>
         </div>
+		
     </div>
             
     <script>
@@ -810,5 +869,52 @@
             createBureauxChart();
         });
     </script>
+	
+	<!-- Chart.js (à placer en bas de votre page, juste avant </body>) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('pieChart').getContext('2d');
+    const data = {
+        labels: [
+            'Plus de 250 000 pages - 1 MFP',
+            'Entre 100 000 et 250 000 pages - 17 MFP',
+            'Entre 50 000 et 99 999 pages - 12 MFP',
+            'Entre 25 000 et 49 999 pages - 46 MFP',
+            'Moins de 10 000 et 24 999 pages - 33 MFP',
+			'Moins de 10 000 - 14 MFP'
+        ],
+        datasets: [{
+            label: 'Pourcentage de copieurs',
+            data: [0.8, 13.8, 9.8, 37.4, 26.8, 11.4],
+            backgroundColor: [
+                '#b71e4c', '#9d2e6d', '#76407e', '#4f497d', '#1B2D5B', '#2CA1AC'
+            ],
+            hoverOffset: 4
+        }]
+    };
+    new Chart(ctx, {
+        type: 'pie',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: { font: { size: 14 } }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (item) => `${item.raw}%`
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+
+		
 </body>
 </html>
