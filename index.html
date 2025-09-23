@@ -140,6 +140,7 @@
             <button id="btn-catalogue" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-800 shadow-lg my-1">Catalogue Forcms</button>
             <button id="btn-leasing" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-800 shadow-lg my-1">Calcul du coût du leasing</button>
             <button id="btn-modele" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-800 shadow-lg my-1">Modèle recommandé</button>
+			<button id="btn-saving" class="nav-button px-6 py-3 mx-2 rounded-full font-semibold bg-gray-200 text-gray-800 shadow-lg my-1">Economies
 		
         </div>
 
@@ -262,8 +263,9 @@
         <h2 class="text-2xl font-semibold text-[#1B2D5B]">
             Analyse du volume d’impression sur la durée du contrat
         </h2>
+		
     </div>
-
+ <h3 class="text-xl font-semibold text-[#B71E4C] mb-4">Introduction</h3>
     <p class="text-sm mb-4">
         Sur la base d’un contrat de 60 mois et d’une capacité théorique de 15 000 pages par mois, la durée de vie estimée d’un MFP atteint environ 1 million de pages.
 		L’étude des compteurs réels montre toutefois une utilisation bien inférieure :
@@ -296,7 +298,7 @@
     </div>
 	
 	 <!-- Bloc Addendum existant -->
-    <div class="mt-6 p-4 rounded-lg bg-yellow-50 border-l-4 border-yellow-500 text-sm text-yellow-800 relative left-1/2 -translate-x-1/2">
+    <div class="mt-6 p-4 rounded-lg bg-yellow-50 border-l-4 border-yellow-500 text-sm text-yellow-800relative">
  
 Ces chiffres confirment un écart important entre la capacité théorique et l’usage réel, qui est illustré par le graphique ci-dessous.
     </div>
@@ -495,6 +497,45 @@ Ces chiffres confirment un écart important entre la capacité théorique et l�
                 <img src="https://i.ibb.co/4ZcMhrp6/logo.png" alt="Logo de l'entreprise" class="h-[100px] w-auto">
             </div>
         </div>
+		<!-- Section Saving -->
+		
+		<div id="section-saving" class="text-section card">
+    <h1 class="text-3xl font-bold mb-2 text-[#2CA1AC]">Économies Potentielles sur la Flotte de MFP</h1>
+    <p class="text-center text-gray-600 mb-8">Comparaison du coût total entre la flotte actuelle (130 MFP) et la flotte optimisée (90 MFP) sur différentes durées de contrat.</p>
+
+    <div class="relative">
+        <canvas id="savingsChart"></canvas>
+    </div>
+
+    <div class="mt-8 p-4 bg-gray-100 rounded-lg">
+        <h2 class="text-xl font-semibold mb-4 text-[#1B2D5B]">Détails des calculs</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div>
+                <h3 class="font-bold text-[#B71E4C]">36 mois</h3>
+                <p>Coût par MFP : 2 758,68 €</p>
+                <p>Coût initial (130) : 358 628,40 €</p>
+                <p>Coût optimisé (90) : 248 281,20 €</p>
+                <p class="font-bold">Économies : 110 347,20 €</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-[#B71E4C]">48 mois</h3>
+                <p>Coût par MFP : 2 839,02 €</p>
+                <p>Coût initial (130) : 369 072,60 €</p>
+                <p>Coût optimisé (90) : 255 511,80 €</p>
+                <p class="font-bold">Économies : 113 560,80 €</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-[#B71E4C]">60 mois</h3>
+                <p>Coût par MFP : 2 920,80 €</p>
+                <p>Coût initial (130) : 379 604,00 €</p>
+                <p>Coût optimisé (90) : 262 872,00 €</p>
+                <p class="font-bold">Économies : 116 732,00 €</p>
+            </div>
+        </div>
+    </div>
+</div>
+		
+		
 		
     </div>
             
@@ -913,6 +954,115 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('savingsChart').getContext('2d');
+
+        // Data for the chart
+        const data = {
+            labels: ['36 mois', '48 mois', '60 mois'],
+            datasets: [
+                {
+                    label: 'Coût total (130 MFP)',
+                    data: [358628.40, 369072.60, 379604.00],
+                    backgroundColor: '#B71E4C',
+                    borderColor: '#B71E4C',
+                    borderWidth: 1,
+                    borderRadius: 5
+                },
+                {
+                    label: 'Coût total (90 MFP)',
+                    data: [248281.20, 255511.80, 262872.00],
+                    backgroundColor: '#1B2D5B',
+                    borderColor: '#1B2D5B',
+                    borderWidth: 1,
+                    borderRadius: 5
+                }
+            ]
+        };
+
+        // Chart options
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Coûts totaux par durée de contrat',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    },
+                    color: '#2CA1AC'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            // Format the number as currency
+                            if (context.parsed.y !== null) {
+                                label += new Intl.NumberFormat('fr-FR', {
+                                    style: 'currency',
+                                    currency: 'EUR'
+                                }).format(context.parsed.y);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Coût Total (€)',
+                        font: {
+                            size: 14
+                        }
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return new Intl.NumberFormat('fr-FR', {
+                                style: 'currency',
+                                currency: 'EUR',
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                            }).format(value);
+                        }
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Durée du contrat',
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            }
+        };
+
+        // Create the chart
+        new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+    });
 </script>
 
 		
